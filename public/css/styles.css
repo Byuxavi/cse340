@@ -1,6 +1,249 @@
-/******* Change Box Model ***************/
-*,
-*:before,
-*:after {
-  box-sizing: border-box;
+/* Esto quita los márgenes por defecto y pone el fondo de cuadros */
+* {
+    box-sizing: border-box; /* Ayuda a que las medidas sean exactas */
 }
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif; /* Una fuente limpia para pasar WAVE */
+    background-image: url("/images/site/checkerboard.jpg"); /* Ruta a tu imagen */
+    background-repeat: repeat;
+}
+
+#wrapper {
+    background-color: white;
+    width: 95%; /* En móviles casi todo el ancho */
+    max-width: 1200px; /* En computadoras no crece infinitamente */
+    margin: 20px auto; /* Centra el cuadro blanco sobre los cuadros negros */
+    border: 5px solid #40b2ba; /* El borde gris oscuro del diseño */
+}
+
+#top-header {
+    display: flex; /* Activa el modo "cinta elástica" */
+    justify-content: space-between; /* Empuja los elementos a los extremos opuestos */
+    align-items: center; /* Los centra verticalmente para que se vean alineados */
+    padding: 10px 20px;
+    background-color: white; /* Asegura que el fondo sea blanco sobre los cuadros */
+}
+
+/* El nombre del sitio (CSE Motors) */
+.siteName a {
+    font-size: 2rem; /* Letra grande y llamativa */
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}
+
+/* El enlace de My Account */
+#tools a {
+    font-size: 1rem; /* Letra más pequeña, como pediste */
+    text-decoration: none;
+    color: #333;
+}
+
+/* Seleccionamos el nav para el fondo negro */
+nav {
+    background-color: #0f0e0e; /* El color oscuro del diseño */
+    width: 100%;
+}
+
+/* Configuramos la lista para que sea flexible */
+nav ul {
+    display: flex;
+    justify-content: space-evenly; /* Espaciado perfecto y simétrico */
+    align-items: center;
+    list-style: none; /* Quitamos los puntos de la lista */
+    margin: 0;
+    padding: 0;
+}
+
+/* Estilo para los elementos de la lista */
+nav ul li {
+    flex: 1; /* Esto hace que cada "botón" ocupe el mismo ancho */
+    text-align: center;
+}
+
+/* Estilo para los enlaces (el texto clicable) */
+nav ul li a {
+    display: block; /* Para que todo el espacio sea clicable, no solo las letras */
+    color: white;
+    text-decoration: none;
+    padding: 15px 0;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+/* El toque final: un cambio de color al pasar el mouse */
+nav ul li a:hover {
+    background-color: #555; /* Un gris un poco más claro */
+    color: #00ecff; /* Opcional: el celeste del logo de Delorean */
+}
+
+main h1 {
+    margin: 20px; /* Separa el título de la barra negra y del coche */
+    font-size: 2.2rem;
+    color: #0f0e0e; 
+}
+
+
+/* --- SECCIÓN HERO (DELOREAN) --- */
+
+/* 1. El contenedor padre */
+.hero {
+    position: relative; /* "Ancla" para el cuadro de texto */
+    max-width: 1000px;  /* ¡Freno de mano! Esto evita que la sección sea gigante */
+    margin: 0 auto;     /* Centra la sección si sobra espacio a los lados */
+}
+
+/* 2. La imagen del auto */
+.hero img {
+    width: 100%;        /* Ocupa el ancho del contenedor padre (.hero) */
+    height: auto;       /* Mantiene la proporción para no deformarse */
+    display: block;     /* Evita espacios blancos extraños debajo de la imagen */
+}
+
+/* 3. El cuadro flotante (La tarjeta de vidrio) */
+.hero-details {
+    position: absolute; /* Flota sobre la imagen */
+    top: 20px;          /* Separación desde arriba */
+    left: 20px;         /* Separación desde la izquierda */
+    
+    background-color: rgba(255, 255, 255, 0.85); /* Blanco con 85% opacidad */
+    padding: 20px;
+    width: 250px;       /* Ancho fijo para que no se vea aplastado */
+    
+    border: 1px solid #ccc;       /* Borde gris suave */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3); /* Sombra 3D para que destaque */
+    color: #1e9cb3;     /* Azul marino para el texto */
+}
+
+/* Título dentro de la tarjeta */
+.hero-details h2 {
+    margin-top: 0;
+    font-size: 1.5rem;
+    color: #1e9cb3;
+}
+
+/* Lista de características */
+.hero-details ul {
+    list-style: none;   /* Quita los puntos negros */
+    padding: 0;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.hero-details li {
+    margin-bottom: 5px; /* Espacio entre items */
+}
+
+/* 4. El botón "Own Today" */
+.btn-own {
+    background-color: #3385ab; /* Cyan eléctrico */
+    border: none;
+    padding: 12px 20px;
+    width: 100%;        /* Botón ancho completo dentro de la tarjeta */
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+/* Efecto al pasar el mouse sobre el botón */
+.btn-own:hover {
+    background-color: #00c0d0; /* Un poco más oscuro */
+    color: white;
+}
+
+/* Seleccionamos el título de las reviews */
+
+h3 {
+    color: #000000;      /* Negro puro */
+    font-size: 1.8rem;   /* Más grande que el texto normal */
+    margin-top: 30px;    /* Lo separa de la imagen del coche arriba */
+    margin-bottom: 15px; /* Espacio para que la lista no se pegue abajo */
+    font-weight: bold;   /* Aseguramos que sea negrita */
+}
+
+/* --- 1. CONTENEDOR FLEX PRINCIPAL --- */
+.flex-container {
+    display: flex;
+    flex-direction: column; /* Móvil: uno abajo del otro */
+    margin: 40px 0;         /* Espacio arriba y abajo para que respire */
+}
+
+/* --- 2. ESTILO DE LAS REVIEWS (DERECHA) --- */
+.reviews-section h3, .upgrades-section h3 {
+    color: #000;
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+
+.reviews-section ul {
+    list-style-type: disc; /* Asegura que se vean los puntos */
+    padding-left: 20px;
+}
+
+.reviews-section li {
+    font-size: 1.1rem;      /* Letra "grandecita" */
+    font-weight: 600;       /* Letra casi negrita, muy legible */
+    margin-bottom: 15px;    /* Espacio entre cada opinión */
+    color: #333;
+}
+
+/* --- 3. ESTILO DE LOS UPGRADES (IZQUIERDA) --- */
+.upgrades-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 2 columnas exactas */
+    gap: 20px;
+}
+
+.upgrade-item {
+
+    text-align: center;
+}
+
+.img-box {
+    background-color: #00ecff; /* El mismo fondo azul para la caja de la imagen */
+    border: 1px solid #008c9e;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.img-box img {
+    max-height: 70px; /* Controla que la imagen no se salga */
+    width: auto;
+}
+
+.upgrade-item a {
+    color: #000080; /* Texto del link azul oscuro para contraste */
+    text-decoration: underline;
+    font-weight: bold;
+    display: block;
+}
+
+/* --- 4. MEDIA QUERY (LA MAGIA DEL ORDEN) --- */
+@media (min-width: 800px) {
+    .flex-container {
+        flex-direction: row;    /* Pone los elementos lado a lado */
+        gap: 50px;              /* Espacio en el medio */
+        align-items: flex-start;
+    }
+
+    /* AQUÍ INVERTIMOS LOS PAPELES */
+    .upgrades-section {
+        flex: 1;      /* Ocupa la mitad del espacio */
+        order: 1;     /* ¡IMPORTANTE! Esto lo manda a la IZQUIERDA (Primero) */
+    }
+
+    .reviews-section {
+        flex: 1;      /* Ocupa la otra mitad */
+        order: 2;     /* ¡IMPORTANTE! Esto lo manda a la DERECHA (Segundo) */
+    }
+}    
+
