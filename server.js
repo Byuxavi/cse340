@@ -10,7 +10,14 @@ const express = require("express") // Trae el framework web principal
 const expressLayouts = require("express-ejs-layouts") // Trae el sistema para usar plantillas
 const env = require("dotenv").config() // Abre la "caja fuerte" de las variables secretas
 const app = express() // Crea la aplicación (el cerebro del servidor)
+
+
 const static = require("./routes/static") // Trae las reglas para archivos fijos (CSS, imágenes)
+const baseController = require("./controllers/baseController")
+const inventoryRoute = require("./routes/inventoryRoute")
+const utilities = require("./utilities/")
+
+
 
 /* ***********************
  * View Engine and Templates (Configurar la apariencia)
@@ -24,9 +31,27 @@ app.set("layout", "./layouts/layout") // Indica cuál es el diseño maestro de l
  *************************/
 app.use(static) // Le dice al servidor que use las rutas de archivos estáticos
 // Index route
-app.get("/", function(req, res){
-  res.render("index", {title: "Home"})
+app.get("/", utilities.handleErrors(baseController.buildHome))
+app.use("/inv", inventoryRoute)
+// File Not Found Route - must be last route in list
+app.use(async (req, res, next) => {
+  next({status: 404, message: 'Sorry, we appear to have lost that page.'})
 })
+/* ***********************
+* Express Error Handler
+* Place after all other middleware
+*************************/
+app.use(async (err, req, res, next) => {
+  let nav = await utilities.getNav()
+  console.error(`Error at: "${req.originalUrl}": ${err.message}`)
+  if(err.status == 404){ message = err.message} else {message = 'Oh no! There was a crash. Maybe try a different route?'}
+  res.render("errors/error", {
+    title: err.status || 'Server Error',
+    message,
+    nav
+  })
+})
+
 /* ***********************
  * Local Server Information (Leer datos de la caja fuerte)
  *************************/

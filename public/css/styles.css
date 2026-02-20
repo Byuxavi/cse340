@@ -13,18 +13,30 @@ body {
 
 #wrapper {
     background-color: white;
-    width: 95%; /* En móviles casi todo el ancho */
-    max-width: 1200px; /* En computadoras no crece infinitamente */
-    margin: 20px auto; /* Centra el cuadro blanco sobre los cuadros negros */
-    border: 5px solid #40b2ba; /* El borde gris oscuro del diseño */
+    width: 100%;       /* En móvil, ocupa todo el ancho */
+    margin: 0;          /* Sin margen exterior en móvil */
+    border: none;       /* Quitamos el borde grueso en móvil */
+    display: flex;
+    flex-direction: column;
 }
 
+/* En pantallas grandes (Desktop), le devolvemos su estilo original */
+@media (min-width: 800px) {
+    #wrapper {
+        width: 95%;
+        max-width: 1200px;
+        margin: 20px auto;
+        border: 5px solid #40b2ba;
+    }
+}
+
+/* MODIFICACIÓN DEL HEADER */
 #top-header {
-    display: flex; /* Activa el modo "cinta elástica" */
-    justify-content: space-between; /* Empuja los elementos a los extremos opuestos */
-    align-items: center; /* Los centra verticalmente para que se vean alineados */
-    padding: 10px 20px;
-    background-color: white; /* Asegura que el fondo sea blanco sobre los cuadros */
+    display: flex;
+    flex-wrap: wrap;       /* Permite que "My Account" baje si el nombre es muy largo */
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 5%;      /* Padding porcentual para que sea flexible */
 }
 
 /* El nombre del sitio (CSE Motors) */
@@ -48,20 +60,21 @@ nav {
     width: 100%;
 }
 
-/* Configuramos la lista para que sea flexible */
+/* MODIFICACIÓN DEL NAV */
 nav ul {
     display: flex;
-    justify-content: space-evenly; /* Espaciado perfecto y simétrico */
-    align-items: center;
-    list-style: none; /* Quitamos los puntos de la lista */
+    flex-wrap: wrap;       /* ¡ESTO ES CLAVE! Permite que los botones bajen si no caben */
+    justify-content: center;
+    list-style: none;
     margin: 0;
     padding: 0;
 }
 
-/* Estilo para los elementos de la lista */
 nav ul li {
-    flex: 1; /* Esto hace que cada "botón" ocupe el mismo ancho */
-    text-align: center;
+    flex: 1 1 0;       /* Obliga a que todos midan EXACTAMENTE lo mismo */
+    text-align: center; /* Centra el texto dentro de ese espacio igualitario */
+    display: flex;      /* Convertimos el LI en flex para usar el centrado total */
+    justify-content: center; 
 }
 
 /* Estilo para los enlaces (el texto clicable) */
@@ -247,3 +260,155 @@ h3 {
     }
 }    
 
+
+/* =========================================
+   INVENTORY CLASSIFICATION VIEW (Mobile First)
+   ========================================= */
+
+/* 1. Estilos base (MÓVIL por defecto) */
+#inv-display {
+    display: flex;
+    flex-direction: column; /* Uno debajo del otro en móvil */
+    align-items: center;    /* Centra las tarjetas en el ancho del celular */
+    list-style: none;       /* Quita los puntos de la lista */
+    padding: 0;
+    margin: 20px 0;
+    gap: 20px;
+}
+
+#inv-display li {
+    background-color: #f9f9f9;
+    border: 1px solid #40b2ba;
+    border-radius: 8px;
+    width: 90%;             /* Casi todo el ancho en móvil */
+    max-width: 350px;       /* Evita que en móviles grandes la tarjeta sea gigante */
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+}
+
+#inv-display img {
+    width: 100%;
+    height: auto;           /* En móvil dejamos que la altura sea natural */
+    display: block;
+}
+
+.namePrice {
+    padding: 15px;
+    text-align: center;
+}
+
+.namePrice h2 a {
+    text-decoration: none;
+    color: #3385ab;
+    font-size: 1.2rem;
+}
+
+/* 2. Estilos para PANTALLAS GRANDES (Escritorio) */
+@media (min-width: 600px) {
+    #inv-display {
+        flex-direction: row; /* Se ponen uno al lado del otro */
+        flex-wrap: wrap;    /* Si no caben, bajan a la siguiente fila */
+        justify-content: center;
+        align-items: stretch; /* Hace que todas las tarjetas midan lo mismo de alto */
+    }
+
+    #inv-display li {
+        width: 300px;       /* Ancho fijo para la cuadrícula en PC */
+        margin-bottom: 0;
+        transition: transform 0.3s ease;
+    }
+
+    #inv-display li:hover {
+        transform: scale(1.02);
+        box-shadow: 4px 4px 15px rgba(0,0,0,0.2);
+    }
+
+    #inv-display img {
+        height: 200px;      /* En PC forzamos altura igual para simetría */
+        object-fit: cover;
+    }
+}
+
+/* =========================================
+   INVENTORY ITEM DETAIL VIEW (Task One)
+   ========================================= */
+
+/* 1. Contenedor principal (Móvil Primero) */
+#item-detail-display {
+    display: flex;
+    flex-direction: column; /* En móvil: uno abajo del otro */
+    padding: 20px;
+    gap: 30px;
+    align-items: center;
+}
+
+/* 2. Imagen del vehículo */
+#item-detail-display img {
+    width: 100%;
+    max-width: 500px; /* Evitamos que se pixele si es muy grande */
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    border: 3px solid #40b2ba; /* El turquesa de tu marca */
+}
+
+/* 3. Columna de información */
+.detail-info {
+    width: 100%;
+    background-color: #f4f4f4;
+    padding: 20px;
+    border-radius: 8px;
+    border-left: 5px solid #3385ab;
+}
+
+.detail-info h2 {
+    margin-top: 0;
+    color: #0f0e0e;
+    font-size: 1.8rem;
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 10px;
+}
+
+/* 4. Resaltar Precio y Millas (Requisito Task One) */
+.detail-info p {
+    font-size: 1.1rem;
+    margin: 10px 0;
+}
+
+/* Hacemos que el precio destaque mucho */
+.detail-info p:nth-of-type(1) { 
+    font-size: 1.6rem;
+    color: #1e9cb3;
+    font-weight: bold;
+    background: #e1f5f7;
+    display: inline-block;
+    padding: 5px 15px;
+    border-radius: 5px;
+}
+
+.detail-info strong {
+    color: #333;
+}
+
+/* 5. DISEÑO PARA PANTALLAS GRANDES (Desktop) */
+@media (min-width: 850px) {
+    #item-detail-display {
+        flex-direction: row; /* Imagen a la izquierda, Info a la derecha */
+        justify-content: center;
+        align-items: flex-start; /* Alinea al tope superior */
+        gap: 50px;
+        margin: 20px auto;
+    }
+
+    #item-detail-display img {
+        flex: 1; /* Ocupa la mitad del espacio */
+        max-width: 600px;
+    }
+
+    .detail-info {
+        flex: 1; /* Ocupa la otra mitad */
+        max-width: 450px;
+    }
+}
