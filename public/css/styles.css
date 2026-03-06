@@ -412,3 +412,91 @@ h3 {
         max-width: 450px;
     }
 }
+
+/* =============================
+   LOGIN & REGISTRATION VIEW
+
+
+/* El contenedor principal (La tarjeta oscura) */
+.login-container {
+    background-color: #384e66; /* Azul grisáceo oscuro de la imagen */
+    max-width: 500px;         /* Ancho controlado */
+    margin: 40px auto;        /* Centrado en pantalla */
+    padding: 30px;            /* Espacio interno */
+    border-radius: 10px;      /* Esquinas redondeadas del cuadro */
+    border: 4px solid #cbb89d; /* Ese borde beige/café claro de la imagen */
+    color: white;             /* Todo el texto dentro será blanco */
+    box-shadow: 0 0 15px rgba(0,0,0,0.5); /* Sombra para darle profundidad */
+}
+
+/* Títulos y Etiquetas */
+.login-container h1 {
+    text-align: center;
+    color: white;
+    margin-bottom: 20px;
+}
+
+.login-container label {
+    display: block;       /* Fuerza que cada label ocupe su propia línea */
+    font-size: 1.2rem;    /* Letra grande y legible */
+    margin-bottom: 5px;   /* Espacio entre label e input */
+    font-weight: bold;    /* Negrita como en la foto */
+    text-align: left;     /* Alineado a la izquierda */
+}
+
+/* Los campos de escritura (Inputs) */
+.login-container input {
+    width: 100%;          /* Ocupa todo el ancho disponible */
+    padding: 12px;        /* Relleno cómodo para escribir */
+    margin-bottom: 20px;  /* Espacio antes del siguiente campo */
+    border-radius: 5px;   /* Bordes ligeramente redondeados */
+    border: none;         /* Sin borde negro feo */
+    font-size: 1rem;
+}
+
+/* El botón de LOGIN (Ovalado y Blanco) */
+.login-container button {
+    display: block;
+    width: 150px;             /* No ocupa todo el ancho, es más pequeño */
+    margin: 20px auto 0;      /* Centrado horizontalmente */
+    background-color: white;  /* Fondo blanco como la imagen */
+    color: #384e66;           /* Texto del color del fondo para contraste */
+    border: none;
+    padding: 10px;
+    border-radius: 20px;      /* ¡Esto crea la forma de píldora/óvalo! */
+    font-weight: bold;
+    font-size: 1rem;
+    text-transform: uppercase; /* Pone "LOGIN" en mayúsculas */
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.login-container button:hover {
+    background-color: #ddd; /* Efecto gris al pasar el mouse */
+}
+
+/* El texto de "No account? Sign-up" */
+.login-container p {
+    text-align: center;
+    margin-top: 25px;
+    font-size: 1.2rem;
+}
+
+.login-container a {
+    color: white;             /* Enlace blanco */
+    font-weight: bold;
+    text-decoration: underline; /* Subrayado como en la imagen */
+}
+
+/* Ajuste para mensajes de error (Flash Messages) */
+.notice {
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 15px;
+    background-color: #ffcccc;
+    color: #cc0000;
+    border: 1px solid #cc0000;
+    border-radius: 5px;
+    text-align: center;
+    list-style: none;
+}
