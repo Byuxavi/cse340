@@ -1,0 +1,100 @@
+El propósito es el "Flujo de Datos": El curso quiere que entiendas que cuando un usuario hace clic en un botón, la información viaja por una Ruta, llega a un Controlador, el controlador le pide algo al Modelo, el modelo habla con la Base de Datos y finalmente todo regresa a una Vista.
+
+El Viaje de Ida (La Petición/Request)
+Este lo tienes muy claro:
+
+server.js: Es la puerta de entrada de toda la app.
+
+routes: El mesero que recibe el pedido y decide por qué pasillo ir.
+
+middleware (utilities/validations): El guardia que revisa si el pedido es correcto o si tienes permiso. Si todo está OK, llama a next().
+
+controllers: El Chef. Recibe la orden y dice: "Necesito los datos del coche #5".
+
+El Punto de Acción (El trato con los datos)
+models: El controlador llama al modelo. El modelo va a la Base de Datos, saca la información y se la devuelve al controlador.
+
+Nota: El modelo no habla con la vista ni con la ruta. Solo le da los datos al controlador en una cajita.
+
+El Viaje de Vuelta (La Respuesta/Response)
+Aquí es donde el mapa cambia un poco:
+6.  controllers: Una vez que el Chef (controlador) tiene los datos que le dio el modelo, él mismo decide qué hacer.
+7.  views: El controlador llama a res.render() o res.redirect().
+* No vuelve a pasar por la ruta ni por el modelo. El controlador toma el archivo EJS (la vista), le "inyecta" los datos del modelo y el servidor envía el resultado final directamente al navegador del usuario.
+
+
+🏁 Fase 1: La Apertura Técnica (Antes del primer cliente)
+Estos archivos se "despiertan" en este orden exacto dentro de server.js para construir el edificio:
+
+dotenv: Se abre la caja fuerte para sacar las llaves (Base de Datos, Puerto).
+
+const env = require("dotenv").config()
+
+express(): Se construye la estructura de acero del edificio (app).
+
+const app = express()
+
+pool (Database): Se conecta la tubería hacia la bodega de datos.
+
+const pool = require('./database/')
+
+app.use(static): Se abren los estantes de suministros (CSS y fotos) en la entrada.
+
+const static = require("./routes/static")
+
+
+📜 El edificio está abierto, pero tiene REGLAS:
+Manual de Estilo (EJS): Define los estándares de dibujo.
+
+app.set("view engine", "ejs"): El Idioma Oficial es EJS.
+
+app.use(expressLayouts): La Regla: Prohibido entregar hojas sueltas; todo debe llevar un marco.
+
+app.set("layout", "./layouts/layout"): El Diseño del Marco oficial (Header/Footer).
+
+Guardia de Seguridad (Errores): El empleado al final del pasillo que te detiene si buscas algo que no existe (Error 404).
+
+app.use(async (req, res, next) => { ... })
+
+📢 El letrero de "ABIERTO":
+app.listen(): Se encienden las luces. El edificio está listo para recibir gente.
+
+app.listen(port, () => { console.log("Abierto...") })
+
+🚪 Fase 2: El Cliente toca la puerta (Petición de la Home /)
+Cuando el cliente escribe tu URL, ocurre esta reacción en cadena:
+
+El Lobby intercepta la visita (server.js):
+El servidor recibe la petición en la raíz /. Como escribiste app.get("/", baseController.buildHome), el servidor grita: "¡Gerente Base, te buscan en la puerta!".
+
+El Gerente toma el control (baseController.js):
+El Base Controller se despierta y ejecuta buildHome. Sabe que debe mostrar el Lobby, pero necesita herramientas.
+
+El Conserje fabrica el menú (utilities/index.js):
+
+El Gerente le pide el menú a utilities.getNav().
+
+El Conserje llama al Bodeguero (inventory-model.js) para saber qué categorías de autos existen.
+
+El Bodeguero viaja a la base de datos y trae la lista (Sports, SUV, etc.).
+
+El Conserje envuelve esa lista en etiquetas HTML y se la devuelve al Gerente.
+
+El Arquitecto ensambla la vista (EJS Layouts):
+
+El Gerente le da al arquitecto el contenido (index) y el menú (nav).
+
+res.render("index", { title: "Home", nav })
+
+layout.ejs pone el techo y el piso.
+
+index.ejs se mete en el hueco central llamado <%- body %>.
+
+🎨 Fase 3: El toque final (Carga de Estáticos)
+El cliente recibe el plano (HTML), pero nota que las paredes están grises:
+
+El Navegador pide el CSS: Al leer la nota <link ... href="/css/styles.css">, el cliente lanza una segunda petición automática.
+
+static.js se activa: Al estar en la entrada, intercepta la petición, agarra el bote de pintura de public/css y se lo da al navegador.
+
+Resultado: ¡El edificio ahora tiene colores, imágenes y fuentes bonitas!
